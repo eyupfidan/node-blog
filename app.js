@@ -1,13 +1,31 @@
 const express = require('express')
 const app = express()
+const  { engine } = require('express-handlebars') ;
 const port = 3000
 const hostname = '127.0.0.1'
+const path = require('path')
+app.use(express.static('public'))
+
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
 app.get('/' , (req,res) => {
 res.status(200)
-res.end("Node.Js Blog App")
-
+res.render('site/index')
 })
+
+app.get('/about' , (req,res) => {
+    res.status(200)
+    res.render('site/about')
+}) 
+
+
+app.get('/blog' , (req,res) => {
+        res.status(200)
+        res.render('site/about')
+    })
+        
 
 app.listen(port,hostname, () => {
     console.log(`Server is Running http://${hostname}:${port}/`)
