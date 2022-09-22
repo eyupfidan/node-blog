@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express()
-const {
-    engine
-} = require('express-handlebars');
+const { engine } = require('express-handlebars');
 const port = 3000
 const hostname = '127.0.0.1'
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://127.0.0.1/nodeblog_db');
+
 app.use(express.static('public'))
 
 app.engine('handlebars', engine());
