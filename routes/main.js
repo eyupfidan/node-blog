@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const Post = require('../models/Post')
 
 
 router.get('/', (req, res) => {
@@ -14,7 +15,9 @@ router.get('/about', (req, res) => {
 
 router.get('/blog', (req, res) => {
     res.status(200)
-    res.render('site/about')
+    Post.find({}).lean().then(posts => {
+        res.render('site/blog',{posts:posts})
+    })
 })
 
 router.get('/contact', (req, res) => {
@@ -28,15 +31,6 @@ router.get('/login', (req, res) => {
 router.get('/register', (req, res) => {
     res.status(200)
     res.render('site/register')
-})
-
-router.get('/posts/new', (req, res) => {
-    res.status(200)
-    res.render('site/addpost')
-})
-router.post('/posts/test', (req, res) => {
-    res.status(200)
-    res.send('OK!')
 })
 
 module.exports = router
