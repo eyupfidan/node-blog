@@ -1,4 +1,5 @@
 const express = require('express')
+const fileUpload = require('express-fileupload')
 const app = express()
 const { engine } = require('express-handlebars');
 const port = 3000
@@ -8,8 +9,12 @@ const main = require('./routes/main')
 const post = require('./routes/posts')
 const bodyParser = require('body-parser')
 
+app.use(fileUpload());
+
+
 app.use(bodyParser.urlencoded({ extended: false })); 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // Use Body Parser
+
 
 mongoose.connect('mongodb://127.0.0.1/nodeblog_db'); //Connection MongoDB
 
