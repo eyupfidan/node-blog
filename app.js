@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // Use Body Parser
 
 
-mongoose.connect('mongodb://127.0.0.1/nodeblog_db'); //Connection MongoDB
+mongoose.connect('mongodb+srv://eyupfidan:F8JITjopoQOiqW7G@cluster0.okkhldo.mongodb.net/?retryWrites=true&w=majority'); //Connection MongoDB
 
 app.use(express.static('public')) // Static files default path
 

@@ -6,10 +6,13 @@ const path = require('path')
 //POST PROCESS -> Add Blog Post
 router.post('/add', (req, res) => {
   res.status(200)
-  Post.create(req.body)
   let postImage = req.files.post_image;
-  postImage.mv(path.resolve(__dirname, '../public/img/omur'), postImage.name)
-  console.log(__dirname)
+  postImage.mv(path.resolve(__dirname, '../public/img/postimg', postImage.name))
+  Post.create({
+    ...req.body,
+    post_image:`/img/postimg/${postImage.name}`
+  })
+  res.redirect('/')
 })
 
 //GET PROCESS -> View General Blog Page
