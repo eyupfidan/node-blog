@@ -24,13 +24,6 @@ router.get('/contact', (req, res) => {
     res.status(200)
     res.render('site/contact')
 })
-router.get('/login', (req, res) => {
-    res.status(200)
-    res.render('site/login')
-})
-router.get('/register', (req, res) => {
-    res.status(200)
-    res.render('site/register')
-})
+
 
 module.exports = router
