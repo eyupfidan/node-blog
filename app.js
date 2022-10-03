@@ -8,12 +8,16 @@ const mongoose = require('mongoose');
 const main = require('./routes/main')
 const post = require('./routes/posts')
 const users = require('./routes/users')
+const expressSession = require('express-session')
+const connectMongo = require('connect-mongo')
+ 
 
 const bodyParser = require('body-parser')
 const generateDate = require('./helpers/generateDate').generateDate
 
 app.use(fileUpload()); //Use fileupload package s
 
+app.use(express.static('public')) // Static files default path
 
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(bodyParser.json()); // Use Body Parser
@@ -21,7 +25,15 @@ app.use(bodyParser.json()); // Use Body Parser
 
 mongoose.connect('mongodb+srv://eyupfidan:F8JITjopoQOiqW7G@cluster0.okkhldo.mongodb.net/?retryWrites=true&w=majority'); //Connection MongoDB (Cloud)
 
-app.use(express.static('public')) // Static files default path
+
+const mongoStore = connectMongo(expressSession)
+
+app.use(expressSession({
+    secret: "cookie_secret",
+    resave: true,
+    saveUninitialized: true,
+    store: new mongoStore({ mongooseConnection : mongoose.connection})
+}));
 
 app.engine('handlebars', engine({helpers:{generateDate:generateDate}})); // Enable handlebars
 app.set('view engine', 'handlebars'); // Enable handlebars engine

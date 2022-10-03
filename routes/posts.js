@@ -17,8 +17,16 @@ router.post('/add', (req, res) => {
 
 //GET PROCESS -> View General Blog Page
 router.get('/new', (req, res) => {
-    res.status(200)
-    res.render('site/addpost')
+    if(req.session.userId)
+    {
+      res.status(200)
+      res.render('site/addpost')
+  
+    }
+    else {
+      res.status(301)
+      res.redirect('/users/login')
+    }
 })
 
 //GET PROCESS -> View Single Blog Page
